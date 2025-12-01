@@ -1,12 +1,13 @@
+import argparse
 import importlib
 from pathlib import Path
-import sys
 import time
 
 
-def run_solve(day: int) -> None:
+def run_solve(day: int, example: bool) -> None:
     day_str = f"day{int(day):02d}"
-    input_file = Path("inputs") / f"{day_str}.txt"
+    example_file = "example" if example else ""
+    input_file = Path("inputs") / f"{day_str}{example_file}.txt"
 
     module_name = f"solutions.{day_str}"
     day_module = importlib.import_module(module_name)
@@ -36,11 +37,17 @@ def run_solve(day: int) -> None:
 
 
 def solve():
-    if len(sys.argv) < 2:
-        print("Usage:  uv run solve [day]")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(
+        description="Run a solution for a given Advent of Code day."
+    )
+    parser.add_argument("day", type=int, help="Day number to run (e.g. 1)")
+    parser.add_argument(
+        "-e", "--example", action="store_true", help="Use the example input file"
+    )
 
-    run_solve(sys.argv[1])
+    args = parser.parse_args()
+
+    run_solve(args.day, args.example)
 
 
 if __name__ == "__main__":
