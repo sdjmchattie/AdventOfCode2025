@@ -34,8 +34,7 @@ def part2(input: PuzzleInput) -> None:
                     continue
 
                 chunks = [
-                    str_x[i : i + chunk_size]
-                    for i in range(0, len(str_x), chunk_size)
+                    str_x[i : i + chunk_size] for i in range(0, len(str_x), chunk_size)
                 ]
                 if all(chunk == chunks[0] for chunk in chunks):
                     bad.append(x)
