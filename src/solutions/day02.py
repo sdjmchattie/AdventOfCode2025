@@ -1,4 +1,4 @@
-from .types import PuzzleInput
+from lib.types import PuzzleInput
 
 
 def prepare_input(file_content: list[str]) -> PuzzleInput:
