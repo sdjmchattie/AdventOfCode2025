@@ -1,5 +1,7 @@
 from typing import Generic, Optional, TypeVar
 
+from lib.direction import Direction, ALL_DIRS
+
 T = TypeVar("T")
 
 
@@ -40,17 +42,28 @@ class Grid2D(Generic[T]):
         self._check_range(x, y)
         self.grid[y][x] = value
 
-    def adjacent_values(self, x: int, y: int) -> list[T]:
-        deltas = [(-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1)]
-        values = []
-        for dx, dy in deltas:
-            nx, ny = x + dx, y + dy
-            try:
-                values.append(self[nx, ny])
-            except IndexError:
-                continue
+    def adjacent_value(self, x: int, y: int, direction: Direction) -> Optional[T]:
+        nx, ny = direction.move(x, y)
+        try:
+            return self[nx, ny]
+        except IndexError:
+            return None
 
-        return values
+    def adjacent_values(
+        self, x: int, y: int, dirs: list[Direction] = ALL_DIRS
+    ) -> list[T]:
+        values = []
+        for direction in dirs:
+            values.append(self.adjacent_value(x, y, direction))
+
+        return [v for v in values if v is not None]
+
+    def find(self, target: T) -> Optional[tuple[int, int]]:
+        for y in range(self.height):
+            for x in range(self.width):
+                if self[x, y] == target:
+                    return (x, y)
+        return None
 
     def __str__(self):
-        return "\n".join([" ".join(map(str, row)) for row in self.grid])
+        return "\n".join(["".join(map(str, row)) for row in self.grid])
