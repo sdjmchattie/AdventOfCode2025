@@ -3,7 +3,7 @@ from lib.grid2d import Grid2D
 
 
 def prepare_input(file_content: list[str]) -> PuzzleInput:
-    original = Grid2D.from_data(file_content)
+    original = Grid2D[str].from_data(file_content)
     parsed = Grid2D(original.width, original.height, 0)
 
     parsed[original.find("S")] = 1

@@ -1,5 +1,3 @@
-from typing import Optional
-
 from lib.direction import Direction, ALL_DIRS
 
 
