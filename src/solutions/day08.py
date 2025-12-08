@@ -12,8 +12,8 @@ class JunctionPair:
     distance: float
 
 
-Circuits = list[set[Point3D[int]]]
-Pairs = list[JunctionPair]
+type Circuits = list[set[Point3D[int]]]
+type Pairs = list[JunctionPair]
 
 
 def prepare_input(file_content: list[str]) -> PuzzleInput:

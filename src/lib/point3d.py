@@ -1,11 +1,8 @@
 from dataclasses import dataclass
-from typing import Generic, TypeVar
-
-IntFloat = TypeVar("IntFloat", int, float)
 
 
 @dataclass(frozen=True)
-class Point3D(Generic[IntFloat]):
+class Point3D[IntFloat: (int, float)]:
     x: IntFloat
     y: IntFloat
     z: IntFloat

@@ -1,12 +1,10 @@
-from typing import Generic, Optional, TypeVar
+from typing import Optional
 
 from lib.direction import Direction, ALL_DIRS
 
-T = TypeVar("T")
 
-
-class Grid2D(Generic[T]):
-    def __init__(self, width: int, height: int, default: Optional[T] = None):
+class Grid2D[T]:
+    def __init__(self, width: int, height: int, default: T | None = None):
         self.width = width
         self.height = height
         self.grid: list[list[T]] = [
